@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#03F4EC</color>
+    <color name="colorPrimaryDark">#F8F6F2</color>
+    <color name="colorAccent">#000000</color>
+    <color name="colortext">#3F4A96</color>
+    <color name="colorbutton">#A9A9AF</color>
+    <color name="colorInsta">#F436DB</color>
+    <color name="colorfb">#5D0BF5</color>
+    <color name="colorbrow">#0A8AF1</color>
+    <color name="colorphone">#1DB823</color>
+    <color name="colormsg">#FACB3B</color>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Intern_Task_1</string>
+    <string name="welcome">WELCOME</string>
+    <string name="new_user_register_here">New User? Register Here</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="register_here">REGISTER HERE</string>
+</resources>
