@@ -21,7 +21,7 @@ import javax.sql.StatementEvent;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText editTextemail, editTextpassword;
+    private EditText editTextemail, editTextpassword;
     ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
@@ -31,8 +31,8 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        editTextemail = findViewById(R.id.editTextemail);
-        editTextpassword = findViewById(R.id.editTextpassword);
+        editTextemail = findViewById(R.id.editTextemaillogin);
+        editTextpassword = findViewById(R.id.editTextpasswordlogin);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -77,20 +77,20 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
-                if (task.isSuccessful()) {
-                    finish();
-                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                if (task.isSuccessful())
+                {
+                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+
                     Toast.makeText(SignUpActivity.this, "User Registration Successful", Toast.LENGTH_SHORT).show();
-                } else {
+                    finish();
+                }
+                else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                        finish();
-                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         Toast.makeText(SignUpActivity.this, "User already registered with the Email ID", Toast.LENGTH_SHORT).show();
-                    } else {
+                        finish();
+                    }
+                    else {
                         Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity {
 
     EditText editTextemail,editTextpassword;
     ProgressBar progressBar;
@@ -28,15 +28,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(savedInstanceState!=null)
+        {
+            finish();
+        }
 
-        findViewById(R.id.textViewSignup).setOnClickListener(this);
-        findViewById(R.id.buttonLogin).setOnClickListener(this);
-
-        editTextemail = findViewById(R.id.editTextemaillogin);
-        editTextpassword = findViewById(R.id.editTextpasswordlogin);
+        editTextemail = findViewById(R.id.editTextemail);
+        editTextpassword = findViewById(R.id.editTextpassword);
         progressBar =findViewById(R.id.progressbarlogin);
 
         mAuth = FirebaseAuth.getInstance();
+
+
+        findViewById(R.id.textViewSignup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,SignUpActivity.class));
+            }
+        });
+        findViewById(R.id.buttonLogin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLogin();
+            }
+        });
 
     }
 
@@ -79,11 +94,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful())
                 {
-                    finish();
-                    Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    startActivity(new  Intent(MainActivity.this,WelcomeActivity.class));
+
                     Toast.makeText(MainActivity.this, "User Logged In", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
                 else
                 {
@@ -92,32 +106,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        if(mAuth.getCurrentUser()!=null)
-        {
-            finish();
-            startActivity(new Intent(MainActivity.this,WelcomeActivity.class));
-        }
-    }
 
-    @Override
-    public void onClick(View view) {
 
-        switch (view.getId())
-        {
-            case R.id.textViewSignup:
-                finish();
-                startActivity(new Intent(this,SignUpActivity.class));
-                break;
-            case R.id.buttonLogin:
-                userLogin();
-                break;
-
-        }
-    }
 }
